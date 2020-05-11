@@ -14,9 +14,9 @@ public class Test {
         for (int i = 0; i < productVar.length; i++) {
             Arrays.sort(productVar[i], new Comparator<String[]>() {
                 public int compare(String[] o1, String[] o2) {
-                    if ((Integer.parseInt(o1[2]) > (Integer.parseInt(o2[2])))) {
+                    if ((Float.parseFloat(o1[2]) > (Float.parseFloat(o2[2])))) {
                         return -1;
-                    } else if ((Integer.parseInt(o1[2]) < (Integer.parseInt(o2[2])))) {
+                    } else if ((Float.parseFloat(o1[2]) < (Float.parseFloat(o2[2])))) {
                         return 1;
                     } else {
                         return 0;
@@ -39,15 +39,15 @@ public class Test {
      * Returns a hashmap that gives index of X and the average number of Y sales for
      * each X
      */
-    public static HashMap<Integer, Integer> secondSort(String[][][] productVar) {
-        HashMap<Integer, Integer> avgHash = new HashMap<>();
+    public static HashMap<Integer, Float> secondSort(String[][][] productVar) {
+        HashMap<Integer, Float> avgHash = new HashMap<>();
 
         // calculate the totalSalesPerX through a for loop through middle loop
         // getting the average of this current X and storing into eachXavg
         // store this integer, integer pair into the HashMap
         for (int container = 0; container < productVar.length; container++) { // outer loop for X
-            int totalSalesPerX = 0;
-            int eachXavg = 0;
+            float totalSalesPerX = 0;
+            float eachXavg = 0;
             int currlength = productVar[container].length;
             for (int variant = 0; variant < currlength; variant++) { // middle loop for y
                 totalSalesPerX += Integer.parseInt(productVar[container][variant][2]);
@@ -56,7 +56,7 @@ public class Test {
             avgHash.put(container, eachXavg);
         }
 
-        LinkedHashMap<Integer, Integer> sortedHash = new LinkedHashMap<>();
+        LinkedHashMap<Integer, Float> sortedHash = new LinkedHashMap<>();
 
         // storing in descending order in a HashMap, the X string value + the average
         // number of Y sales for it
@@ -68,7 +68,7 @@ public class Test {
 
     public static void outputCSV(String[][][] sorted, String fileName) {
         ArrayList<Integer> product = new ArrayList<>();
-        ArrayList<Integer> average = new ArrayList<>();
+        ArrayList<Float> average = new ArrayList<>();
         secondSort(sorted).entrySet().forEach(entry -> {
             product.add(entry.getKey());
             average.add(entry.getValue());
